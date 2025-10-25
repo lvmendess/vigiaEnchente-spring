@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VigiaEnchente</title>
+  <link rel="stylesheet" href="styles/profile.css">
+  <link rel="icon" href="images/ve-logo.png" type="image/x-icon">
+</head>
+<body>
+  <div class="blur"></div>
+  <div class="container">
+    <div class="title">
+      <h1><a href="/" class="home-link">VigiaEnchente</a></h1>
+      <button class="button-logout" id="button-logout">
+        <img src="images/logout-icon.png" alt="Logout Icon" class="logout-icon">
+      </button>
+    </div>
+    <hr class="line-title">
+    
+    <div class="panel">
+      <!-- User Section -->
+      <div class="leftpanel">
+
+        <div class="infos">
+          <img src="images/user-icon.png" alt="">
+          <p class="name-user">Nome</p>
+          <button class="button-edit"><img src="images/editar-icon.png" alt="" id="edit_icon"></button>
+        </div>
+
+        <div class="infos">
+          <p class="email-user">Email:</p>
+        </div>
+
+        <hr>
+
+        <div class="infos">
+          <p class="phone-user">Telefone:</p>
+        </div>
+
+        <hr>
+
+        <div class="infos">
+          <p class="addr-user">Endereço:</p>
+        </div>
+
+        <hr>
+
+       
+      </div>
+      <!-- Notification Section -->
+      <div class="rightpanel">
+        <p class="title-right">Notificações</p>
+        <hr>
+        <label><input type="checkbox" class="checkbox">Email</label>
+        <label><input type="checkbox" class="checkbox">SMS</label>
+        <label><input type="checkbox" class="checkbox">Whatsapp</label>
+        <button type="submit">Salvar Alterações</button>
+      </div>
+
+    </div>
+
+    <!-- Address Section -->
+    <div id="edit-popup" class="edit-popup">
+      <div class="popup-content">
+        <span class="close-button">&times;</span>
+        <h2>Cadastro de Endereço</h2>
+
+        <form class="edit-form">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cep">CEP</label>
+              <input type="tel" id="cep" name="cep" placeholder="Informe o CEP" autofocus>
+            </div>
+
+            <div class="form-group">
+              <label for="uf">UF</label>
+              <input type="text" id="uf" name="uf" placeholder="UF">
+            </div>
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="cidade">Cidade</label>
+              <input type="text" id="cidade" name="cidade" placeholder="Informe a Cidade">
+            </div>
+
+            <div class="form-group">
+              <label for="bairro">Bairro</label>
+              <input type="text" id="bairro" name="bairro" placeholder="Informe o Bairro">
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label for="endereco">Endereço</label>
+              <input type="text" id="endereco" name="endereco" placeholder="Informe o seu Endereço">
+            </div>
+
+            <div class="form-group">
+              <label for="nr_end">Número</label>
+              <input type="text" id="nr_end" name="nr_end" placeholder="Informe o Número">
+            </div>
+
+          </div>
+
+          <button type="submit" class="save-address">Salvar Endereço</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <script src="scripts/profile.js"></script>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js" type="text/javascript"></script>
+</body>
+</html>

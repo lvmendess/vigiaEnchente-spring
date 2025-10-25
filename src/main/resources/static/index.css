@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Catamaran", serif;
+  color: #fff;
+}
+
+body {
+  background: url('../images/background.png') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+button:hover{
+  transform: scale(1.05);
+}
+
+.title>h1:hover{
+  transform: scale(1.05);
+}
+
+.blur{
+  height: 70%;
+  width: 70%;
+  max-width: 1200px;
+  backdrop-filter: blur(10px);
+  position: absolute;
+  z-index: 0;
+  filter: drop-shadow(10px 0px black);
+  border-radius: 10px;
+}
+
+.container {
+  height: 70%;
+  z-index: 1;
+  width: 70%;
+  max-width: 1200px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  background-color: rgba(93, 211, 255, 0.20);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35); 
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.title{
+  display: flex;
+  width: 100%;
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.button-userlogin{
+  margin-top: 0px !important;
+  display: flex;
+  height: 50px;
+  width: 60px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.144);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.user-icon{
+  height: 80%;
+  width: 70%;
+}
+
+.home-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.home-link:hover {
+  text-decoration: none;
+}
+
+.line-title{
+  width: 100%;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.432);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Força 2 colunas por padrão */
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+  padding: 10px;
+  height: 90%;
+}
+
+.infocard{
+  border: 2px solid white;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  height: 90%;
+  min-height: 200px;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card de Tempo */
+
+.weather{
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-title{
+  text-align: center;
+  margin-top: 5px;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.temp{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.temp-img{
+  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+  max-width: 100px;
+  height: auto;
+}
+
+.temp_value{
+  font-weight: bold;
+  font-size: 4rem;
+  line-height: 1.2;
+}
+
+.temp_description{
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.infos-temp{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card de mais infos */
+
+.more-infos{
+  align-items: center;
+  justify-content: center;
+}
+
+.other_infos{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  padding: 10px;
+}
+
+.other_infos .info{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 4px 10px;
+  border-radius: 8px;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.other_infos .info h2{
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.other_infos .info p{
+  font-size: 1.6rem;
+}
+
+.other_infos .info i{
+  text-align: center;
+  font-size: 1.5rem;
+  width: 20%;
+}
+
+/* Card de Alerta */
+
+.alert{
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: rgba(0, 87, 6, 0.2);
+  padding: 20px;
+}
+
+.alert h2{
+  font-size: 2rem;
+  margin-top: 10px;
+}
+
+.alert img{
+  max-width: 100px;
+  height: auto;
+}
+
+/* Card de noticias */
+
+.news {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0px 5px;
+}
+
+.news h2{
+  margin-top: 5px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.news-container {
+  display: flex;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.news-container p {
+  font-size: 0.9rem;
+  color: #fff;
+  text-align: center;
+}
+
+.news-container a {
+  font-size: 0.9rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.news-container a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1500px){
+
+  .container {
+    height: 78%;
+  }
+
+  .blur{
+    height: 78%;
+  }
+
+  .other_infos .info h2{
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  
+  .other_infos .info p{
+    font-size: 1.3rem;
+  }
+  
+  .other_infos .info i{
+    text-align: center;
+    font-size: 1.2rem;
+    width: 20%;
+  }
+
+  .alert h2{
+    font-size: 1.5rem;
+  }
+
+  .alert{
+    padding: 15px;
+  }
+
+  .alert img{
+    margin-bottom: 10px;
+  }
+
+  .news-container{
+    height: 70%;
+    margin-top: 0px;
+    gap: 5px;
+  }
+
+  .news{
+    padding: 5px;
+    gap: 8px;
+  }
+
+  .news h2{
+    font-size: 1.2rem;
+    margin-top: 0px;
+  }
+
+  .news-container p{
+    font-size: 0.8rem;
+  }
+
+  .news-container a{
+    font-size: 0.8rem;
+  }
+
+  .weather-title{
+    font-size: 1.5rem;
+  }
+
+  .temp_value{
+    font-size: 3.2rem;
+  }
+
+  .temp_description{
+    font-size: 1.2rem;
+  }
+
+}
+
+@media (max-width: 1300px){
+  .container {
+    height: 90%;
+  }
+
+  .blur{
+    height: 90%;
+  }
+
+  .cards{
+    height: 85%;
+    padding: 0px;
+  }
+
+  .alert{
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .alert h2{
+    margin-top: 5px;
+  }
+
+  .other_infos .info h2{
+    font-size: 1em;
+    font-weight: 600;
+  }
+  
+  .other_infos .info p{
+    font-size: 1rem;
+  }
+  
+  .other_infos .info i{
+    text-align: center;
+    font-size: 1rem;
+    width: 20%;
+  }
+
+  .news-container{
+    height: 70%;
+    margin-top: 0px;
+    gap: 5px;
+  }
+
+  .news{
+    padding: 5px;
+    gap: 8px;
+  }
+
+  .news h2{
+    font-size: 1.2rem;
+    margin-top: 0px;
+  }
+
+  .news-container p{
+    font-size: 0.8rem;
+  }
+
+  .news-container a{
+    font-size: 0.8rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .infocard{
+    height: 80%;
+    min-height: 160px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .other_infos{
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .temp_value {
+    font-size: 2rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .title {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .button-userlogin {
+    margin-top: 10px !important;
+  }
+
+  .temp_value {
+    font-size: 1.8rem;
+  }
+
+  .other_infos .info h2 {
+    font-size: 0.9rem;
+  }
+
+  .other_infos .info p {
+    font-size: 0.8rem;
+  }
+
+  .other_infos .info i {
+    font-size: 1rem;
+  }
+}
