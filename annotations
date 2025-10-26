@@ -1,0 +1,8 @@
+VigiaEnchente/
+├── vigiaenchente-core/           → Regras de domínio, entidades, integrações comuns
+├── vigiaenchente-api/            → API REST principal (dados, alertas, dashboards)
+├── vigiaenchente-collector/      → Módulo de coleta de dados (sensores, APIs externas)
+├── vigiaenchente-dashboard/      → Frontend (React ou Angular)
+├── vigiaenchente-notifier/       → Serviço de alertas (e-mail, SMS, Telegram, WhatsApp)
+├── vigiaenchente-analytics/      → Módulo de análise (IA / detecção de padrões)
+└── infra/                        → Deploy, CI/CD, containers e infraestrutura como código
