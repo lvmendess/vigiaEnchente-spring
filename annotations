@@ -6,3 +6,281 @@ VigiaEnchente/
 ├── vigiaenchente-notifier/       → Serviço de alertas (e-mail, SMS, Telegram, WhatsApp)
 ├── vigiaenchente-analytics/      → Módulo de análise (IA / detecção de padrões)
 └── infra/                        → Deploy, CI/CD, containers e infraestrutura como código
+
+# VigiaEnchente - Estrutura de Módulos Spring Boot
+
+## 1. vigiaenchente-core (Módulo Base)
+
+### Propósito
+- Entidades de domínio compartilhadas
+- DTOs comuns
+- Exceções customizadas
+- Utilitários compartilhados
+- Configurações comuns
+
+### Estrutura
+```
+vigiaenchente-core/
+├── src/main/java/com/vigiaenchente/core/
+│   ├── domain/
+│   │   ├── entity/
+│   │   │   ├── User.java
+│   │   │   ├── Address.java
+│   │   │   ├── PushSubscription.java
+│   │   │   └── Alert.java
+│   │   ├── enums/
+│   │   │   ├── FloodRiskLevel.java
+│   │   │   └── AlertType.java
+│   │   └── vo/                    # Value Objects
+│   │       ├── Coordinates.java
+│   │       └── WeatherData.java
+│   ├── dto/
+│   │   ├── UserDTO.java
+│   │   ├── AddressDTO.java
+│   │   └── AlertDTO.java
+│   ├── exception/
+│   │   ├── BusinessException.java
+│   │   ├── ResourceNotFoundException.java
+│   │   └── AuthenticationException.java
+│   ├── util/
+│   │   ├── DateTimeUtil.java
+│   │   ├── CoordinateUtil.java
+│   │   └── ValidationUtil.java
+│   └── config/
+│       └── CoreConfiguration.java
+└── pom.xml
+```
+
+---
+
+## 2. vigiaenchente-api (API REST Principal)
+
+### Propósito
+- Endpoints REST
+- Autenticação e autorização
+- Gerenciamento de usuários
+- Dashboard de alertas
+
+### Estrutura
+```
+vigiaenchente-api/
+├── src/main/java/com/vigiaenchente/api/
+│   ├── controller/
+│   │   ├── AuthController.java
+│   │   ├── UserController.java
+│   │   ├── AddressController.java
+│   │   ├── AlertController.java
+│   │   └── DashboardController.java
+│   ├── service/
+│   │   ├── AuthService.java
+│   │   ├── UserService.java
+│   │   ├── AddressService.java
+│   │   └── SessionService.java
+│   ├── repository/
+│   │   ├── UserRepository.java
+│   │   ├── AddressRepository.java
+│   │   └── SubscriptionRepository.java
+│   ├── security/
+│   │   ├── SecurityConfig.java
+│   │   ├── SessionFilter.java
+│   │   └── PasswordEncoder.java
+│   ├── config/
+│   │   ├── WebConfig.java
+│   │   └── SessionConfig.java
+│   └── VigiaEnchenteApiApplication.java
+└── pom.xml
+```
+
+---
+
+## 3. vigiaenchente-collector (Coleta de Dados)
+
+### Propósito
+- Integração com APIs externas
+- Coleta de dados climáticos
+- Coleta de dados de rios/enchentes
+- Geolocalização
+
+### Estrutura
+```
+vigiaenchente-collector/
+├── src/main/java/com/vigiaenchente/collector/
+│   ├── service/
+│   │   ├── WeatherCollectorService.java
+│   │   ├── FloodDataCollectorService.java
+│   │   ├── GeolocationService.java
+│   │   └── NewsCollectorService.java
+│   ├── client/
+│   │   ├── OpenWeatherClient.java
+│   │   ├── FloodApiClient.java
+│   │   ├── IpInfoClient.java
+│   │   └── NewsApiClient.java
+│   ├── dto/
+│   │   ├── WeatherResponse.java
+│   │   ├── FloodDataResponse.java
+│   │   └── NewsResponse.java
+│   ├── mapper/
+│   │   ├── WeatherMapper.java
+│   │   └── FloodDataMapper.java
+│   ├── config/
+│   │   ├── RestTemplateConfig.java
+│   │   └── ExternalApiConfig.java
+│   └── VigiaEnchenteCollectorApplication.java
+└── pom.xml
+```
+
+---
+
+## 4. vigiaenchente-notifier (Sistema de Notificações)
+
+### Propósito
+- Push notifications (Web Push)
+- E-mail notifications
+- SMS notifications
+- Gerenciamento de subscrições
+
+### Estrutura
+```
+vigiaenchente-notifier/
+├── src/main/java/com/vigiaenchente/notifier/
+│   ├── service/
+│   │   ├── PushNotificationService.java
+│   │   ├── EmailNotificationService.java
+│   │   ├── SmsNotificationService.java
+│   │   └── SubscriptionService.java
+│   ├── scheduler/
+│   │   └── NotificationScheduler.java
+│   ├── model/
+│   │   ├── NotificationPayload.java
+│   │   └── Subscription.java
+│   ├── repository/
+│   │   └── SubscriptionRepository.java
+│   ├── config/
+│   │   ├── VapidConfig.java
+│   │   └── SchedulerConfig.java
+│   └── VigiaEnchenteNotifierApplication.java
+└── pom.xml
+```
+
+---
+
+## 5. vigiaenchente-analytics (Análise e IA)
+
+### Propósito
+- Cálculo de risco de enchente
+- Análise de tendências
+- Machine Learning (futuro)
+- Processamento de dados históricos
+
+### Estrutura
+```
+vigiaenchente-analytics/
+├── src/main/java/com/vigiaenchente/analytics/
+│   ├── service/
+│   │   ├── FloodRiskAnalysisService.java
+│   │   ├── TrendAnalysisService.java
+│   │   └── HistoricalDataService.java
+│   ├── algorithm/
+│   │   ├── RiskCalculator.java
+│   │   └── DataAggregator.java
+│   ├── model/
+│   │   ├── RiskAnalysis.java
+│   │   └── TrendData.java
+│   ├── repository/
+│   │   └── HistoricalDataRepository.java
+│   └── VigiaEnchenteAnalyticsApplication.java
+└── pom.xml
+```
+
+---
+
+## 6. vigiaenchente-dashboard (Frontend)
+
+### Propósito
+- Interface do usuário
+- Visualização de alertas
+- Mapas interativos
+- Gráficos e dashboards
+
+### Estrutura
+```
+vigiaenchente-dashboard/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Alert/
+│   │   ├── Weather/
+│   │   ├── Map/
+│   │   └── User/
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── Profile.jsx
+│   │   └── Dashboard.jsx
+│   ├── services/
+│   │   ├── api.js
+│   │   └── notification.js
+│   ├── hooks/
+│   └── App.jsx
+├── package.json
+└── vite.config.js
+```
+
+---
+
+## Dependências entre Módulos
+
+```
+vigiaenchente-api
+    ├── depends on → vigiaenchente-core
+    ├── depends on → vigiaenchente-collector
+    ├── depends on → vigiaenchente-analytics
+    └── depends on → vigiaenchente-notifier
+
+vigiaenchente-collector
+    └── depends on → vigiaenchente-core
+
+vigiaenchente-notifier
+    └── depends on → vigiaenchente-core
+
+vigiaenchente-analytics
+    ├── depends on → vigiaenchente-core
+    └── depends on → vigiaenchente-collector
+```
+
+---
+
+## Configuração do Parent POM
+
+```xml
+<groupId>com.vigiaenchente</groupId>
+<artifactId>vigiaenchente-parent</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<packaging>pom</packaging>
+
+<modules>
+    <module>vigiaenchente-core</module>
+    <module>vigiaenchente-api</module>
+    <module>vigiaenchente-collector</module>
+    <module>vigiaenchente-notifier</module>
+    <module>vigiaenchente-analytics</module>
+</modules>
+```
+
+---
+
+## Tecnologias Principais
+
+- **Spring Boot 3.x**
+- **Spring Security** (autenticação)
+- **Spring Data JPA** (persistência)
+- **Spring Session** (gerenciamento de sessão)
+- **Spring WebFlux** (chamadas assíncronas)
+- **Spring Scheduler** (tarefas agendadas)
+- **MySQL** (banco de dados)
+- **Redis** (cache e sessões - opcional)
+- **WebPush Library** (notificações push)
+- **RestTemplate/WebClient** (clientes HTTP)
+- **MapStruct** (mapeamento de objetos)
+- **Lombok** (redução de boilerplate)
+- **JUnit 5 + Mockito** (testes)
