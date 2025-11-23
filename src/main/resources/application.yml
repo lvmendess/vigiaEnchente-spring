@@ -1,38 +1,55 @@
+# application.yml - Configuração Principal
 spring:
   application:
     name: vigiaenchente-api
 
+  # Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/VigiaEnchente?useSSL=false&serverTimezone=UTC
-    username: abade
+    url: jdbc:mysql://localhost:3306/VigiaEnchente?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:abade}
     password: ${DB_PASSWORD:Raphaell1@}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
       connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
 
+  # JPA Configuration
   jpa:
     hibernate:
       ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
     open-in-view: false
 
+  # Session Management
   session:
     store-type: jdbc
     jdbc:
       initialize-schema: always
+      table-name: SPRING_SESSION
     timeout: 7d
     cookie:
+      name: VIGIAENCHENTE_SESSION
       http-only: true
       secure: false
       same-site: lax
       max-age: 7d
+      path: /
 
+  # Cache Configuration
   cache:
     type: caffeine
     caffeine:
@@ -44,31 +61,36 @@ spring:
       - cityByIp
       - coordinatesByCity
       - coordinatesByIp
+      - news
 
+  # Jackson Configuration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    time-zone: America/Sao_Paulo
+
+# Server Configuration
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
+    context-path: /
     session:
       cookie:
         name: VIGIAENCHENTE_SESSION
         http-only: true
         secure: false
         same-site: lax
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
 
-logging:
-  level:
-    com.vigiaenchente: INFO
-    org.springframework.web: INFO
-    org.hibernate.SQL: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-
----
-# vigiaenchente-collector/src/main/resources/application.yml
-spring:
-  application:
-    name: vigiaenchente-collector
-
+# External APIs Configuration
 openweather:
   api:
     key: ${OPENWEATHER_API_KEY:733da4642c26a47989b7d127dc1c9aac}
@@ -87,41 +109,137 @@ newsapi:
     key: ${NEWS_API_KEY:70be492766714d8cbf00ad8ada64f751}
     base-url: https://newsapi.org/v2
 
-server:
-  port: 8081
-
----
-# vigiaenchente-notifier/src/main/resources/application.yml
-spring:
-  application:
-    name: vigiaenchente-notifier
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/VigiaEnchente?useSSL=false&serverTimezone=UTC
-    username: abade
-    password: ${DB_PASSWORD:Raphaell1@}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: false
-
+# VAPID Configuration for Push Notifications
 vapid:
   public:
     key: ${PUBLIC_VAPID_KEY:BCQisdcMW1TRQT8VTGVM8Ds-hYNGOsNhsynqCBeDKrt-BJmKvy6iYrGkSgQoamQHp6xdFJY0zhzq4wMsGUIp7QY}
   private:
-    key: ${PRIVATE_VAPID_KEY}
-  subject: mailto:${VAPID_EMAIL:your-email@example.com}
+    key: ${PRIVATE_VAPID_KEY:}
+  subject: ${VAPID_SUBJECT:mailto:your-email@example.com}
 
-server:
-  port: 8082
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.vigiaenchente: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/vigiaenchente.log
+    max-size: 10MB
+    max-history: 30
+
+# Management Endpoints (Actuator)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Application Custom Properties
+app:
+  default-city: Sabará
+  default-coordinates:
+    latitude: -19.8949
+    longitude: -43.8148
+  flood-risk:
+    low-threshold: 5.0
+    medium-threshold: 10.0
+    high-variation-threshold: 3.0
+  notification:
+    scheduler:
+      enabled: true
+      fixed-rate: 60000  # 1 minute in milliseconds
 
 ---
-# vigiaenchente-analytics/src/main/resources/application.yml
+# Development Profile
 spring:
-  application:
-    name: vigiaenchente-analytics
+  config:
+    activate:
+      on-profile: dev
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    com.vigiaenchente: DEBUG
+    org.springframework.web: DEBUG
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:VigiaEnchente}?useSSL=true&serverTimezone=America/Sao_Paulo
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  session:
+    cookie:
+      secure: true
+
+  jpa:
+    show-sql: false
 
 server:
-  port: 8083
+  servlet:
+    session:
+      cookie:
+        secure: true
+
+logging:
+  level:
+    com.vigiaenchente: INFO
+    org.springframework.web: WARN
+
+---
+# Test Profile
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+app:
+  notification:
+    scheduler:
+      enabled: false
