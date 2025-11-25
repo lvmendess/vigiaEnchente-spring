@@ -1,6 +1,7 @@
 package com.vigiaenchente.notifier.repository;
 
 import com.vigiaenchente.core.domain.entity.PushSubscription;
+import com.vigiaenchente.notifier.model.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -131,4 +132,6 @@ public interface SubscriptionRepository extends JpaRepository<PushSubscription, 
             @Param("endpoint") String endpoint,
             @Param("updatedAt") LocalDateTime updatedAt
     );
+
+    void delete(Subscription subscription);
 }

@@ -1,5 +1,6 @@
 package com.vigiaenchente.notifier.service;
 
+import com.vigiaenchente.core.domain.entity.PushSubscription;
 import com.vigiaenchente.notifier.model.NotificationPayload;
 import com.vigiaenchente.notifier.model.Subscription;
 import com.vigiaenchente.notifier.repository.SubscriptionRepository;
@@ -53,37 +54,34 @@ public class PushNotificationService {
     /**
      * Sends notifications to all active subscriptions
      */
+    /**
+     * Sends notifications to all active subscriptions
+     */
     public void sendNotificationToAll(NotificationPayload payload) {
-        List<Subscription> subscriptions = subscriptionRepository.findAll();
+        List<PushSubscription> subscriptions = subscriptionRepository.findAll();
 
         log.info("Sending notifications to {} subscriptions", subscriptions.size());
 
-        subscriptions.forEach(subscription ->
-                sendNotification(subscription, payload)
-        );
+        subscriptions.forEach(entity -> {
+            Subscription subscription = Subscription.fromEntity(entity);
+            sendNotification(subscription, payload);
+        });
     }
 
     /**
      * Sends notifications to all subscriptions of a specific user
      */
     public void sendNotificationToUser(Long userId, NotificationPayload payload) {
-        List<Subscription> subscriptions = subscriptionRepository.findByUserId(userId);
+        List<PushSubscription> subscriptions = subscriptionRepository.findByUserId(userId);
 
         log.info("Sending notifications to user {} ({} subscriptions)", userId, subscriptions.size());
 
-        subscriptions.forEach(subscription ->
-                sendNotification(subscription, payload)
-        );
+        subscriptions.forEach(entity -> {
+            Subscription subscription = Subscription.fromEntity(entity);
+            sendNotification(subscription, payload);
+        });
     }
 
-    /**
-     * Sends notifications based on city
-     */
-    public void sendNotificationByCity(String city, NotificationPayload payload) {
-        // In a real implementation, you'd filter subscriptions by user's city
-        log.info("Sending city-specific notifications for: {}", city);
-        sendNotificationToAll(payload);
-    }
 
     private void handleFailedNotification(Subscription subscription, Exception e) {
         // Check if subscription is invalid (410 Gone or 404 Not Found)

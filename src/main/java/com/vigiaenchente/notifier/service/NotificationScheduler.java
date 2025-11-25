@@ -1,5 +1,6 @@
 package com.vigiaenchente.notifier.service;
 
+import com.vigiaenchente.core.domain.entity.PushSubscription;
 import com.vigiaenchente.notifier.model.NotificationPayload;
 import com.vigiaenchente.notifier.model.Subscription;
 import com.vigiaenchente.notifier.repository.SubscriptionRepository;
@@ -10,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -27,7 +29,11 @@ public class NotificationScheduler {
     public void sendPeriodicNotifications() {
         log.info("Starting periodic notification job");
 
-        List<Subscription> subscriptions = subscriptionRepository.findAll();
+        // CORREÇÃO: Converter List<PushSubscription> para List<Subscription>
+        List<Subscription> subscriptions = subscriptionRepository.findAll()
+                .stream()
+                .map(Subscription::fromEntity) // Usando o método estático que você já tem
+                .collect(Collectors.toList());
 
         if (subscriptions.isEmpty()) {
             log.debug("No subscriptions to send notifications to");
