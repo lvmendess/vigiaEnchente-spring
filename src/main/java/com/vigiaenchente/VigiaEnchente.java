@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EntityScan(basePackages = "com.vigiaenchente.core.domain.entity")
 @EnableJpaRepositories(basePackages = {
         "com.vigiaenchente.api.repository",
-        "com.vigiaenchente.notifier.repository"
+        //"com.vigiaenchente.notifier.repository"
 })
 public class VigiaEnchente {
 

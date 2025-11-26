@@ -1,11 +1,13 @@
 # application.yml - Configuração Principal
 spring:
-  application:
-    name: vigiaenchente-api
+  sql:
+    init:
+      spring.sql.init.mode=always
+      spring.sql.init.schema-locations=classpath:db/db.sql
 
   # Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/VigiaEnchente?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/VigiaEnchente?createDatabaseIfNotExist=true
     username: ${DB_USERNAME:abade}
     password: ${DB_PASSWORD:Raphaell1@}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -18,6 +20,7 @@ spring:
 
   # JPA Configuration
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: validate
       naming:

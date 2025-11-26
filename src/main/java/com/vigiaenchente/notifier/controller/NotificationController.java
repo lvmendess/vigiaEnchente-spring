@@ -33,7 +33,7 @@ public class NotificationController {
         log.info("Received subscription request");
         log.debug("Subscription details: {}", request);
 
-        Long userId = (Long) session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("userId");
 
         var subscriptionKeys = request.getSubscription();
         NotificationPayload payload = request.getPayload();

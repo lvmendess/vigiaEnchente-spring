@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Subscription {
-    private Long id;
+    private Integer id;
     private String endpoint;
     private String p256dh;
     private String auth;
-    private Long userId;
+    private Integer userId;
     private String payload;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

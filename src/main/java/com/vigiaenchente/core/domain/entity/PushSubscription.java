@@ -17,19 +17,19 @@ public class PushSubscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false, unique = true, length = 500)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String endpoint;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String p256dh;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String auth;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(columnDefinition = "TEXT")
     private String payload;

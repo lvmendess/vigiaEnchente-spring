@@ -18,7 +18,7 @@ import java.util.Optional;
  * Handles CRUD operations for web push notification subscriptions
  */
 @Repository
-public interface SubscriptionRepository extends JpaRepository<PushSubscription, Long> {
+public interface SubscriptionRepository extends JpaRepository<PushSubscription, Integer> {
 
     /**
      * Find subscription by endpoint URL
@@ -32,7 +32,7 @@ public interface SubscriptionRepository extends JpaRepository<PushSubscription, 
      * @param userId The ID of the user
      * @return List of subscriptions belonging to the user
      */
-    List<PushSubscription> findByUserId(Long userId);
+    List<PushSubscription> findByUserId(Integer userId);
 
     /**
      * Check if an endpoint already exists
@@ -72,7 +72,7 @@ public interface SubscriptionRepository extends JpaRepository<PushSubscription, 
      * @param userId The ID of the user
      * @return Number of subscriptions
      */
-    long countByUserId(Long userId);
+    Integer countByUserId(Integer userId);
 
     /**
      * Find all subscriptions created within a date range
@@ -93,7 +93,7 @@ public interface SubscriptionRepository extends JpaRepository<PushSubscription, 
      * @return List of subscriptions ordered by most recent first
      */
     @Query("SELECT s FROM PushSubscription s WHERE s.userId = :userId ORDER BY s.updatedAt DESC")
-    List<PushSubscription> findByUserIdOrderByUpdatedAtDesc(@Param("userId") Long userId);
+    List<PushSubscription> findByUserIdOrderByUpdatedAtDesc(@Param("userId") Integer userId);
 
     /**
      * Count total active subscriptions
@@ -117,7 +117,7 @@ public interface SubscriptionRepository extends JpaRepository<PushSubscription, 
     @Modifying
     @Transactional
     @Query("DELETE FROM PushSubscription s WHERE s.userId = :userId")
-    void deleteByUserId(@Param("userId") Long userId);
+    void deleteByUserId(@Param("userId") Integer userId);
 
     /**
      * Update the updatedAt timestamp for a subscription

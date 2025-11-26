@@ -18,18 +18,18 @@ public class AddressService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void saveOrUpdateAddress(Long userId, AddressRequest request) {
+    public void saveOrUpdateAddress(Integer userId, AddressRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
         Address address = addressRepository.findByUserId(userId)
                 .orElse(Address.builder().user(user).build());
 
-        address.setRua(request.getStreet());
-        address.setNumRua(request.getNum());
-        address.setCep(request.getCep());
-        address.setBairro(request.getNeighbor());
-        address.setCidade(request.getCity());
+        address.setStreet(request.getStreet());
+        address.setNumber(request.getNum());
+        address.setZipCode(request.getCep());
+        address.setNeighborhood(request.getNeighbor());
+        address.setCity(request.getCity());
 
         addressRepository.save(address);
     }

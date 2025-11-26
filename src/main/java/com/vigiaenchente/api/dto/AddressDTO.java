@@ -23,11 +23,11 @@ public class AddressDTO {
         }
 
         return AddressDTO.builder()
-                .rua(address.getRua())
-                .numRua(address.getNumRua())
-                .cep(address.getCep())
-                .bairro(address.getBairro())
-                .cidade(address.getCidade())
+                .rua(address.getStreet())
+                .numRua(address.getNumber())
+                .cep(address.getZipCode())
+                .bairro(address.getNeighborhood())
+                .cidade(address.getCity())
                 .build();
     }
 }

@@ -25,7 +25,7 @@ public class SubscriptionService {
             String endpoint,
             String p256dh,
             String auth,
-            Long userId,
+            Integer userId,
             NotificationPayload payload) {
 
         PushSubscription entity = subscriptionRepository.findByEndpoint(endpoint)
@@ -66,7 +66,7 @@ public class SubscriptionService {
     }
 
     @Transactional(readOnly = true)
-    public List<Subscription> getUserSubscriptions(Long userId) {
+    public List<Subscription> getUserSubscriptions(Integer userId) {
         return subscriptionRepository.findByUserId(userId).stream()
                 .map(Subscription::fromEntity)
                 .collect(Collectors.toList());

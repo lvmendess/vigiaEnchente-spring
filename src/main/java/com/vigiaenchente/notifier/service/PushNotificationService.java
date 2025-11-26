@@ -71,7 +71,7 @@ public class PushNotificationService {
     /**
      * Sends notifications to all subscriptions of a specific user
      */
-    public void sendNotificationToUser(Long userId, NotificationPayload payload) {
+    public void sendNotificationToUser(Integer userId, NotificationPayload payload) {
         List<PushSubscription> subscriptions = subscriptionRepository.findByUserId(userId);
 
         log.info("Sending notifications to user {} ({} subscriptions)", userId, subscriptions.size());

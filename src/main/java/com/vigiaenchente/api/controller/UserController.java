@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<UserProfileResponse> getUserProfile(HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
             return ResponseEntity.status(401).build();
         }
@@ -36,7 +36,7 @@ public class UserController {
             @Valid @RequestBody AddressRequest request,
             HttpSession session) {
 
-        Long userId = (Long) session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) {
             return ResponseEntity.status(401).build();
         }

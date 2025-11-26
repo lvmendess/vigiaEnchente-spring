@@ -17,24 +17,24 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_address")
-    private Long id;
+    private Integer id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_address_user", nullable = false)
     private User user;
 
-    @Column(nullable = false)
-    private String rua;
+    @Column(name = "rua", nullable = false)
+    private String street;
 
     @Column(name = "num_rua")
-    private String numRua;
+    private String number;
 
-    @Column(nullable = false)
-    private String cep;
+    @Column(name = "cep", nullable = false, length = 8)
+    private String zipCode;
 
-    @Column(nullable = false)
-    private String bairro;
+    @Column(name = "bairro", nullable = false)
+    private String neighborhood;
 
-    @Column(nullable = false)
-    private String cidade;
+    @Column(name = "cidade", nullable = false)
+    private String city;
 }
