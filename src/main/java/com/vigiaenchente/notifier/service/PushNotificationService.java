@@ -88,7 +88,7 @@ public class PushNotificationService {
         String errorMessage = e.getMessage();
         if (errorMessage != null && (errorMessage.contains("410") || errorMessage.contains("404"))) {
             log.warn("Removing invalid subscription: {}", subscription.getEndpoint());
-            subscriptionRepository.delete(subscription);
+            subscriptionRepository.deleteByEndpoint(subscription.getEndpoint());
         }
     }
 }

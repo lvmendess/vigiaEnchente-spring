@@ -133,5 +133,5 @@ public interface SubscriptionRepository extends JpaRepository<PushSubscription, 
             @Param("updatedAt") LocalDateTime updatedAt
     );
 
-    void delete(Subscription subscription);
+
 }

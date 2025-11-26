@@ -48,8 +48,7 @@ public class SubscriptionService {
 
     @Transactional
     public void unsubscribe(String endpoint) {
-        subscriptionRepository.findByEndpoint(endpoint)
-                .ifPresent(subscriptionRepository::delete);
+        subscriptionRepository.deleteByEndpoint(endpoint);
         log.info("Subscription removed for endpoint: {}", endpoint);
     }
 

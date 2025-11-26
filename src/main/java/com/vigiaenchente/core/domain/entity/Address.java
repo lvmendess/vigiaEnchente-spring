@@ -30,7 +30,7 @@ public class Address {
     private String number;
 
     @Column(name = "cep", nullable = false, length = 8)
-    private String zipCode;
+    private String cep;
 
     @Column(name = "bairro", nullable = false)
     private String neighborhood;

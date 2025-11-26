@@ -27,7 +27,7 @@ public class AddressService {
 
         address.setStreet(request.getStreet());
         address.setNumber(request.getNum());
-        address.setZipCode(request.getCep());
+        address.setCep(request.getCep());
         address.setNeighborhood(request.getNeighbor());
         address.setCity(request.getCity());
 

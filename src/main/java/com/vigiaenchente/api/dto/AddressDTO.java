@@ -25,7 +25,7 @@ public class AddressDTO {
         return AddressDTO.builder()
                 .rua(address.getStreet())
                 .numRua(address.getNumber())
-                .cep(address.getZipCode())
+                .cep(address.getCep())
                 .bairro(address.getNeighborhood())
                 .cidade(address.getCity())
                 .build();

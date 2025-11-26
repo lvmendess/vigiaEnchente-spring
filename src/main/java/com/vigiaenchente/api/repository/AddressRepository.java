@@ -21,7 +21,7 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
     /**
      * Find all addresses in a specific city
      */
-    List<Address> findByCidade(String cidade);
+    List<Address> findByCity(String city);
 
     /**
      * Find all addresses in a specific CEP
