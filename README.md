@@ -343,7 +343,10 @@ Este projeto está sob a licença MIT.
 
 ## 👥 Autores
 
-- **Seu Nome** - *Trabalho Inicial* - [GitHub](https://github.com/yourusername)
+- **Lívia Mendes** - [GitHub](https://github.com/lvmendess)
+- **Paulo Moura** - [GitHub](https://github.com/pmmc026)
+- **Pedro Sanzio** - [GitHub](https://github.com/phsanzio)
+- **Raphael Abade** - [GitHub](https://github.com/R-Abade)
 
 ## 🙏 Agradecimentos
 
